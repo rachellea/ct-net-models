@@ -1,0 +1,9 @@
+Accession,MRN,Set_Assigned,Subset_Assigned,status,full_filename_pkl,full_filename_npz
+FAKE000,MRN000,imgtrain_notetrain,imgtrain,success,FAKE000.pkl,FAKE000.npz
+FAKE111,MRN111,imgtrain_extra,imgtrain,success,FAKE111.pkl,FAKE111.npz
+FAKE222,MRN222,imgtrain_extra,imgtrain,success,FAKE222.pkl,FAKE222.npz
+FAKE333,MRN333,imgtrain_extra,imgtrain,success,FAKE333.pkl,FAKE333.npz
+FAKE444,MRN444,imgtest,imgtest_a,success,FAKE444.pkl,FAKE444.npz
+FAKE555,MRN555,imgvalid,imgvalid_a,success,FAKE555.pkl,FAKE555.npz
+FAKE666,MRN666,imgtrain_extra,imgtrain,success,FAKE666.pkl,FAKE666.npz
+FAKE777,MRN777,imgtrain_notetrain,imgtrain,success,FAKE777.pkl,FAKE777.npz

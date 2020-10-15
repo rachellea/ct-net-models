@@ -1,0 +1,9 @@
+MRN,Accession,Set_Assigned,Subset_Assigned
+MRN000,FAKE000,imgtrain_notetrain,imgtrain
+MRN111,FAKE111,imgtrain_extra,imgtrain
+MRN222,FAKE222,imgtrain_extra,imgtrain
+MRN333,FAKE333,imgtrain_extra,imgtrain
+MRN444,FAKE444,imgtest,imgtest_a
+MRN555,FAKE555,imgvalid,imgvalid_a
+MRN666,FAKE666,imgtrain_extra,imgtrain
+MRN777,FAKE777,imgtrain_notetrain,imgtrain
