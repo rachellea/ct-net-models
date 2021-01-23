@@ -250,6 +250,15 @@ class DukeCTModel(object):
     
     def iterate_through_batches(self, model, dataloader, epoch, training):
         epoch_loss = 0
+        
+        #Initialize numpy arrays for storing results. examples x labels
+        #Do NOT use concatenation, or else you will have memory fragmentation.
+        num_examples = len(dataloader.dataset)
+        num_labels = len(self.label_meanings)
+        pred_epoch = np.zeros([num_examples,num_labels])
+        gr_truth_epoch = np.zeros([num_examples,num_labels])
+        volume_accs_epoch = np.empty(num_examples,dtype='U32') #need to use U32 to allow string of length 32
+        
         for batch_idx, batch in enumerate(dataloader):
             data, gr_truth = self.move_data_to_device(batch)
             self.optimizer.zero_grad()
@@ -266,19 +275,16 @@ class DukeCTModel(object):
             epoch_loss += loss.item()
             torch.cuda.empty_cache()
             
-            #Save binary predictions and ground truth
+            #Save predictions and ground truth across batches
             pred = self.sigmoid(out.data).detach().cpu().numpy()
             gr_truth = gr_truth.detach().cpu().numpy()
             
-            #Save across batches:
-            if batch_idx == 0:
-                pred_epoch = pred
-                gr_truth_epoch = gr_truth
-                volume_accs_epoch = np.array(batch['volume_acc'])
-            else:
-                pred_epoch = np.concatenate((pred_epoch, pred), axis = 0)
-                gr_truth_epoch = np.concatenate((gr_truth_epoch, gr_truth), axis = 0)
-                volume_accs_epoch = np.concatenate((volume_accs_epoch, batch['volume_acc']), axis = 0)
+            start_row = batch_idx*self.batch_size
+            stop_row = min(start_row + self.batch_size, num_examples)
+            pred_epoch[start_row:stop_row,:] = pred #pred_epoch is e.g. [25355,80] and pred is e.g. [1,80] for a batch size of 1
+            gr_truth_epoch[start_row:stop_row,:] = gr_truth #gr_truth_epoch has same shape as pred_epoch
+            volume_accs_epoch[start_row:stop_row] = batch['volume_acc'] #volume_accs_epoch stores the volume accessions in the order they were used
+            
             #the following line to empty the cache is necessary in order to
             #reduce memory usage and avoid OOM error:
             torch.cuda.empty_cache() 
