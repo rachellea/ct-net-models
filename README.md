@@ -37,8 +37,9 @@ fake data, run this command:
 
 `python main.py`
 
-We are currently in the process of making the RAD-ChestCT data set public.
-Currently this repository includes fake data files to enable demonstrating
+The RAD-ChestCT data set [is publicly availalbe on Zenodo](https://zenodo.org/record/6406114).
+
+Because the real dataset is large, currently this repository includes fake data files to enable demonstrating
 the code and the required data formats. The fake data is located in *load_dataset/fakedata*.
 The fake CTs were generated as follows: 
 
